@@ -1,0 +1,3 @@
+C:/Users/Juan Diego/Desktop/CS2023aed/structures/array/cmake-build-debug/CMakeFiles/array.dir
+C:/Users/Juan Diego/Desktop/CS2023aed/structures/array/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Juan Diego/Desktop/CS2023aed/structures/array/cmake-build-debug/CMakeFiles/rebuild_cache.dir
