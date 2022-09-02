@@ -18,5 +18,6 @@ int main() {
     cout << array.to_string() << endl;
     cout << array.size() << endl;
     cout << array.get_capacity() << endl;
+    
     return 0;
 }
