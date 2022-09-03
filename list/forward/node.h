@@ -14,7 +14,6 @@ private:
     void _kill_self_();
 
 public:
-    node<T>* prev;
     node<T>* next;
     T data;
 
