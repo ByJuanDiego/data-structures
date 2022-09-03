@@ -14,14 +14,14 @@ void circular_array<T>::_assign_()
 
 template<typename T>
 circular_array<T>::circular_array()
-        :capacity(DEFAULT_SIZE), front(), back()
+:capacity(DEFAULT_SIZE), front(), back()
 {
     _assign_();
 }
 
 template<typename T>
 circular_array<T>::circular_array(const std::initializer_list<T>& list)
-        :capacity(std::distance(list.begin(), list.end())), front(), back()
+:capacity(std::distance(list.begin(), list.end())), front(), back()
 {
     _assign_();
     for (const T& element: list){
@@ -31,7 +31,7 @@ circular_array<T>::circular_array(const std::initializer_list<T>& list)
 
 template<typename T>
 circular_array<T>::circular_array(const std::initializer_list<T> &list, const size_t& capacity)
-        :capacity(capacity), front(), back()
+:capacity(capacity), front(), back()
 {
     _assign_();
     for (const T& element: list){
@@ -42,7 +42,7 @@ circular_array<T>::circular_array(const std::initializer_list<T> &list, const si
 
 template<typename T>
 circular_array<T>::circular_array(const size_t &capacity)
-        : capacity(capacity), front(), back()
+:capacity(capacity), front(), back()
 {
     _assign_();
 }
@@ -214,7 +214,7 @@ void circular_array<T>::_resize_() {
     capacity = capacity * 2;
     _copy_();
     front = 0;
-    back = sz-1;
+    back = static_cast<index_t>(sz)-1;
 }
 
 template<typename T>
@@ -223,7 +223,7 @@ void circular_array<T>::resize(const size_t &new_size) {
     capacity = new_size;
     _copy_();
     front = 0;
-    back = sz-1;
+    back = static_cast<index_t>(sz)-1;
 }
 
 template<typename T>
@@ -240,8 +240,6 @@ template<typename T>
 array_iterator<T> &array_iterator<T>::operator++() {
     if (current == array->size()-1){
         current = -1;
-    } else if (current == -1){
-        current = 0;
     } else {
         current = array->next(current);
     }

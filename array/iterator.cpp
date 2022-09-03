@@ -48,12 +48,14 @@ bool array_iterator<T>::operator!=(const array_iterator<T> &other) const{
 
 template<typename T>
 bool array_iterator<T>::operator<(const array_iterator<T> &other) const {
-    return (this->current < other.current);
+    if ((current >= 0) && (other.current == -1)) return true;
+    else if ((current == -1) && (other.current >= 0)) return false;
+    return this->current < other.current;
 }
 
 template<typename T>
 bool array_iterator<T>::operator<=(const array_iterator<T> &other) const {
-    return (this->current <=other.current);
+    return (this->operator<(other) || (current == other.current));
 }
 
 template<typename U>

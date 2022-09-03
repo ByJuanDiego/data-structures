@@ -27,44 +27,44 @@ private:
     index_t front;
     index_t back;
 
-    void _assign_();
-    void _resize_();
-    void _copy_();
+    void _assign_(); // O(n)
+    void _resize_(); // O(n)
+    void _copy_();   // O(n)
 
 public:
 
-    circular_array();
-    circular_array(const std::initializer_list<T>& list);
-    explicit circular_array(const std::initializer_list<T>& list, const size_t& capacity);
-    explicit circular_array(const size_t& capacity);
-    virtual ~circular_array();
+    circular_array();                                                                      // O(1)
+    circular_array(const std::initializer_list<T>& list);                                  // O(n)
+    explicit circular_array(const std::initializer_list<T>& list, const size_t& capacity); // O(n)
+    explicit circular_array(const size_t& capacity);                                       // O(n)
+    virtual ~circular_array();                                                             // O(n)
 
-    [[nodiscard]] index_t prev(const index_t& index) const;
-    [[nodiscard]] index_t next(const index_t& index) const;
+    [[nodiscard]] index_t prev(const index_t& index) const; // O(1)
+    [[nodiscard]] index_t next(const index_t& index) const; // O(1)
 
-    [[nodiscard]] bool empty() const;
-    [[nodiscard]] bool full() const;
-    [[nodiscard]] size_t size() const;
-    [[nodiscard]] size_t get_capacity() const;
+    [[nodiscard]] bool empty() const;          // O(1)
+    [[nodiscard]] bool full() const;           // O(1)
+    [[nodiscard]] size_t size() const;         // O(1)
+    [[nodiscard]] size_t get_capacity() const; // O(1)
 
-    void push_back(const T& value);
-    void push_front(const T& value);
-    T pop_back();
-    T pop_front();
+    void push_back(const T& value);             // O(n)
+    void push_front(const T& value);            // O(n)
+    T pop_back();                               // O(1)
+    T pop_front();                              // O(1)
 
-    [[nodiscard]] T& operator[](index_t index);
-    [[nodiscard]] T operator[](index_t index) const;
+    [[nodiscard]] T& operator[](index_t index);      // O(1)
+    [[nodiscard]] T operator[](index_t index) const; // O(1)
 
-    [[nodiscard]] std::string to_string(const std::string& step = " ") const;
+    [[nodiscard]] std::string to_string(const std::string& step = " ") const; // O(n)
 
-    template<typename U>
+    template<typename U> // O(n)
     friend std::ostream& operator << (std::ostream& os, const circular_array<U>& array);
 
-    void clear();
-    void resize(const size_t& new_size);
+    void clear();                        // O(1)
+    void resize(const size_t& new_size); // O(n)
 
-    [[nodiscard]] iterator begin();
-    [[nodiscard]] iterator end();
+    [[nodiscard]] iterator begin();      // O(1)
+    [[nodiscard]] iterator end();        // O(1)
 };
 
 

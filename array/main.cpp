@@ -24,27 +24,12 @@ int main() {
     array.push_back(7);
     array.push_front(3);
     array.push_back(4);
-
-    for (circular_array<int>::iterator it = array.begin(); it != array.end(); ++it){
-        cout << *it << step;
-    }
-    cout << endl;
+    array.pop_back();
+    array.pop_front();
 
     for (const auto & i : array){
         cout << i << step;
     }
-    cout << endl;
 
-    for_adapter(array, [&](const int& value)->void {
-        cout << value << step;
-    });
-    cout << endl;
-
-    for_adapter_ptr(array, [&](const int& value)->void {
-        cout << value << step;
-    });
-    cout << endl;
-
-    cout << array.to_string(step) << endl;
     return 0;
 }
