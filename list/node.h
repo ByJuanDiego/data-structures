@@ -8,13 +8,20 @@
 
 template <typename T>
 struct node {
+
+private:
+
+    void _kill_self_();
+
+public:
     node<T>* prev;
     node<T>* next;
     T data;
 
     node();
+    ~node();
     explicit node(const T& value);
-    void kill_self();
+
 };
 
 

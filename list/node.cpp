@@ -17,6 +17,11 @@ node<T>::node(const T &value)
 }
 
 template<typename T>
-void node<T>::kill_self() {
+void node<T>::_kill_self_() {
     next = prev = nullptr;
+}
+
+template<typename T>
+node<T>::~node() {
+    _kill_self_();
 }

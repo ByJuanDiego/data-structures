@@ -37,7 +37,7 @@ bool forward_list<T>::empty() const {
 
 template<typename T>
 bool forward_list<T>::sorted() const {
-    if (empty()) {
+    if (empty() || size() == 1) {
         return true;
     }
     node<T>* iterable = head;
@@ -82,7 +82,7 @@ T forward_list<T>::pop_front() {
     T value = head->data;
     node<T>* nodo = head;
     head = head->next;
-    nodo->kill_self();
+    delete nodo;
     --nodes;
     return value;
 }
@@ -93,7 +93,8 @@ T forward_list<T>::pop_back() {
         throw std::invalid_argument("Invalid operation, empty list");
     } else if (size() == 1){
         T value = tail->data;
-        tail->kill_self();
+        delete tail;
+        tail = head = nullptr;
         --nodes;
         return value;
     } else{
@@ -102,7 +103,7 @@ T forward_list<T>::pop_back() {
         while (iterable->next != tail){
             iterable = iterable->next;
         }
-        tail->kill_self();
+        delete tail;
         tail = iterable;
         tail->next = nullptr;
         --nodes;
@@ -131,7 +132,7 @@ void forward_list<T>::clear() {
     while (head != nullptr){
         node<T>* temp = head;
         head = head->next;
-        temp->kill_self();
+        delete temp;
     }
     nodes = 0;
 }
