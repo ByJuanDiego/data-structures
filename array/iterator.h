@@ -5,24 +5,25 @@
 #ifndef ARRAY_ITERATOR_H
 #define ARRAY_ITERATOR_H
 
+#include <iostream>
 #include <cstddef>
-using index_t =  std::size_t;
+using index_t =  ssize_t;
+
+template <typename T>
+class circular_array;
 
 template <typename T>
 class array_iterator{
 
-    using data_ptr = T*;
-
 private:
 
     index_t current;
-    data_ptr data;
-    size_t* capacity;
+    circular_array<T>* array;
 
 public:
 
     array_iterator();
-    array_iterator(const index_t& idx, data_ptr& data, size_t& capacity);
+    explicit array_iterator(circular_array<T>* array, const index_t& index);
     array_iterator(const array_iterator<T>& other);
 
     array_iterator<T>& operator++();
@@ -37,6 +38,9 @@ public:
     bool operator!= (const array_iterator<T>& other) const;
     bool operator < (const array_iterator<T>& other) const;
     bool operator<= (const array_iterator<T>& other) const;
+
+    template<typename U>
+    friend std::ostream& operator << (std::ostream& os, const array_iterator<U>& iterator);
 };
 
 

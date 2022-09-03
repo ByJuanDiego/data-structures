@@ -3,6 +3,7 @@
 //
 
 #include "circular_array.h"
+#define DEFAULT_SIZE 100
 
 template<typename T>
 void circular_array<T>::_assign_()
@@ -13,7 +14,7 @@ void circular_array<T>::_assign_()
 
 template<typename T>
 circular_array<T>::circular_array()
-        :capacity(100), front(), back()
+        :capacity(DEFAULT_SIZE), front(), back()
 {
     _assign_();
 }
@@ -60,23 +61,23 @@ bool circular_array<T>::empty() const
 }
 
 template<typename T>
-index_t circular_array<T>::prev(const index_t& idx) const
+index_t circular_array<T>::prev(const index_t& index) const
 {
-    if (empty() || idx < 0)
+    if (empty() || index < 0)
     {
         throw std::invalid_argument("Invalid operation, index out of range");
     }
-    return (idx == 0)? (capacity-1) : (idx-1);
+    return (index == 0)? (capacity-1) : (index-1);
 }
 
 template<typename T>
-index_t circular_array<T>::next(const index_t& idx) const
+index_t circular_array<T>::next(const index_t& index) const
 {
-    if (empty() || idx < 0)
+    if (empty() || index < 0)
     {
         throw std::invalid_argument("Invalid operation, index out of range");
     }
-    return (idx + 1) % capacity;
+    return (index + 1) % capacity;
 }
 
 template<typename T>
@@ -159,19 +160,19 @@ T circular_array<T>::pop_front() {
 }
 
 template<typename T>
-T& circular_array<T>::operator[](index_t idx){
-    if (idx > capacity){
+T& circular_array<T>::operator[](index_t index){
+    if (index > capacity){
         throw std::invalid_argument("Invalid operation, index out of range");
     }
-    return data[(front + idx) % capacity];
+    return data[(front + index) % capacity];
 }
 
 template<typename T>
-T circular_array<T>::operator[](index_t idx) const{
-    if (idx > capacity){
+T circular_array<T>::operator[](index_t index) const{
+    if (index > capacity){
         throw std::invalid_argument("Invalid operation, index out of range");
     }
-    return data[(front + idx) % capacity];
+    return data[(front + index) % capacity];
 }
 
 
@@ -199,12 +200,12 @@ void circular_array<T>::clear() {
 
 template<typename T>
 typename circular_array<T>::iterator circular_array<T>::begin() {
-    return iterator(front, data, capacity);;
+    return iterator(this, 0);
 }
 
 template<typename T>
 typename circular_array<T>::iterator circular_array<T>::end() {
-    return iterator(back, data, capacity);
+    return iterator(this, -1);
 }
 
 template<typename T>
@@ -233,4 +234,36 @@ void circular_array<T>::_copy_() {
     }
     delete [] data;
     data = new_data;
+}
+
+template<typename T>
+array_iterator<T> &array_iterator<T>::operator++() {
+    if (current == array->size()-1){
+        current = -1;
+    } else if (current == -1){
+        current = 0;
+    } else {
+        current = array->next(current);
+    }
+    return (*this);
+}
+
+template<typename T>
+array_iterator<T> &array_iterator<T>::operator--() {
+    if (current > 0){
+        current = array->prev(current);
+    } else {
+        current = array->size()-1;
+    }
+    return (*this);
+}
+
+template<typename T>
+T &array_iterator<T>::operator*() {
+    return array->operator[](current);
+}
+
+template<typename T>
+T array_iterator<T>::operator*() const {
+    return array->operator[](current);
 }

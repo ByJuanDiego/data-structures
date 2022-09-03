@@ -18,6 +18,7 @@ class circular_array {
 public:
 
     typedef array_iterator<T> iterator;
+    friend class array_iterator<T>;
 
 private:
 
@@ -29,8 +30,6 @@ private:
     void _assign_();
     void _resize_();
     void _copy_();
-    [[nodiscard]] index_t prev(const index_t& idx) const;
-    [[nodiscard]] index_t next(const index_t& idx) const;
 
 public:
 
@@ -39,6 +38,9 @@ public:
     explicit circular_array(const std::initializer_list<T>& list, const size_t& capacity);
     explicit circular_array(const size_t& capacity);
     virtual ~circular_array();
+
+    [[nodiscard]] index_t prev(const index_t& index) const;
+    [[nodiscard]] index_t next(const index_t& index) const;
 
     [[nodiscard]] bool empty() const;
     [[nodiscard]] bool full() const;
@@ -50,8 +52,8 @@ public:
     T pop_back();
     T pop_front();
 
-    [[nodiscard]] T& operator[](index_t idx);
-    [[nodiscard]] T operator[](index_t idx) const;
+    [[nodiscard]] T& operator[](index_t index);
+    [[nodiscard]] T operator[](index_t index) const;
 
     [[nodiscard]] std::string to_string(const std::string& step = " ") const;
 
@@ -64,21 +66,6 @@ public:
     [[nodiscard]] iterator begin();
     [[nodiscard]] iterator end();
 };
-
-template<typename T, typename Function>
-void for_adapter(circular_array<T>& array, const Function& function) {
-    for (int i=0; i<array.size(); i++){
-        function(array[i]);
-    }
-}
-
-template<typename T, typename Function>
-void for_adapter_ptr(circular_array<T>& array, const Function& function){
-    for (circular_array<int>::iterator it = array.begin(); it != array.end(); it++){
-        function(*it);
-    }
-    function(*array.end());
-}
 
 
 #endif //ARRAY_CIRCULAR_ARRAY_H

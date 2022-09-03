@@ -6,38 +6,25 @@
 
 template<typename T>
 array_iterator<T>::array_iterator()
-        : current(-1), data(nullptr), capacity(nullptr)
+        : current(-1), array(nullptr)
 {
 }
 
 template<typename T>
-array_iterator<T>::array_iterator(const index_t& idx, data_ptr& data, size_t& capacity)
-        : current(idx), data(data), capacity(&capacity)
+array_iterator<T>::array_iterator(circular_array<T> *array, const index_t& index)
+        : array(array), current(index)
 {
 }
 
 template<typename T>
 array_iterator<T>::array_iterator(const array_iterator<T> &other)
-        :  current(other.current), capacity(other.capacity), data(other.data)
+        :  current(other.current), array(other.array)
 {
-}
-
-
-template<typename T>
-array_iterator<T> &array_iterator<T>::operator++() {
-    current = (current + 1) % (*capacity);
-    return (*this);
-}
-
-template<typename T>
-array_iterator<T> &array_iterator<T>::operator--() {
-    current = (current == 0)? (*capacity-1) : (current-1);
-    return (*this);
 }
 
 template<typename T>
 array_iterator<T> array_iterator<T>::operator++(int) {
-    const array_iterator<T> temp = (*this);
+    array_iterator<T> temp = (*this);
     ++(*this);
     return temp;
 }
@@ -48,17 +35,6 @@ array_iterator<T> array_iterator<T>::operator--(int) {
     --(*this);
     return temp;
 }
-
-template<typename T>
-T &array_iterator<T>::operator*() {
-    return data[current];
-}
-
-template<typename T>
-T array_iterator<T>::operator*() const {
-    return data[current];
-}
-
 
 template<typename T>
 bool array_iterator<T>::operator==(const array_iterator<T> &other) const{
@@ -78,4 +54,10 @@ bool array_iterator<T>::operator<(const array_iterator<T> &other) const {
 template<typename T>
 bool array_iterator<T>::operator<=(const array_iterator<T> &other) const {
     return (this->current <=other.current);
+}
+
+template<typename U>
+std::ostream &operator<<(std::ostream &os, const array_iterator<U> &iterator) {
+    os << iterator.current;
+    return os;
 }

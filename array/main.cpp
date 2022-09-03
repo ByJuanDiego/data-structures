@@ -3,21 +3,48 @@
 using std::cout;
 using std::endl;
 
-int main() {
-    circular_array<int> array = {1, 2, 3, 4};
-    std::string step = " ";
+template<typename T, typename Function>
+void for_adapter(circular_array<T>& array, const Function& function) {
+    for (int i=0; i<array.size(); i++){
+        function(array[i]);
+    }
+}
 
-    for_adapter(array, [&](const int& value)->void{
+template<typename T, typename Function>
+void for_adapter_ptr(circular_array<T>& array, const Function& function){
+    for (const T& value: array){
+        function(value);
+    }
+}
+
+int main() {
+    std::string step = " ";
+    circular_array<int> array;
+    array.push_front(1);
+    array.push_back(7);
+    array.push_front(3);
+    array.push_back(4);
+
+    for (circular_array<int>::iterator it = array.begin(); it != array.end(); ++it){
+        cout << *it << step;
+    }
+    cout << endl;
+
+    for (const auto & i : array){
+        cout << i << step;
+    }
+    cout << endl;
+
+    for_adapter(array, [&](const int& value)->void {
         cout << value << step;
     });
     cout << endl;
 
-    array.push_back(5);
-    array.push_back(6);
-    array.push_front(10);
-    cout << array.to_string() << endl;
-    cout << array.size() << endl;
-    cout << array.get_capacity() << endl;
-    
+    for_adapter_ptr(array, [&](const int& value)->void {
+        cout << value << step;
+    });
+    cout << endl;
+
+    cout << array.to_string(step) << endl;
     return 0;
 }
