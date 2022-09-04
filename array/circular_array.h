@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <iterator>
 #include <initializer_list>
-#include "iterator.cpp"
+#include "circular_iterator.cpp"
 
 template <typename T>
 class circular_array {

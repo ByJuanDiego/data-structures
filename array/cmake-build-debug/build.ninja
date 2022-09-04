@@ -51,19 +51,19 @@ build cmake_object_order_depends_target_array: phony || CMakeFiles/array.dir
 
 build CMakeFiles/array.dir/main.cpp.obj: CXX_COMPILER__array_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/array/main.cpp || cmake_object_order_depends_target_array
   DEP_FILE = CMakeFiles\array.dir\main.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\array.dir
   OBJECT_FILE_DIR = CMakeFiles\array.dir
 
 build CMakeFiles/array.dir/circular_array.cpp.obj: CXX_COMPILER__array_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/array/circular_array.cpp || cmake_object_order_depends_target_array
   DEP_FILE = CMakeFiles\array.dir\circular_array.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\array.dir
   OBJECT_FILE_DIR = CMakeFiles\array.dir
 
-build CMakeFiles/array.dir/iterator.cpp.obj: CXX_COMPILER__array_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/array/iterator.cpp || cmake_object_order_depends_target_array
-  DEP_FILE = CMakeFiles\array.dir\iterator.cpp.obj.d
-  FLAGS = -g
+build CMakeFiles/array.dir/circular_iterator.cpp.obj: CXX_COMPILER__array_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/array/circular_iterator.cpp || cmake_object_order_depends_target_array
+  DEP_FILE = CMakeFiles\array.dir\circular_iterator.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\array.dir
   OBJECT_FILE_DIR = CMakeFiles\array.dir
 
@@ -75,7 +75,7 @@ build CMakeFiles/array.dir/iterator.cpp.obj: CXX_COMPILER__array_Debug C$:/Users
 #############################################
 # Link the executable array.exe
 
-build array.exe: CXX_EXECUTABLE_LINKER__array_Debug CMakeFiles/array.dir/main.cpp.obj CMakeFiles/array.dir/circular_array.cpp.obj CMakeFiles/array.dir/iterator.cpp.obj
+build array.exe: CXX_EXECUTABLE_LINKER__array_Debug CMakeFiles/array.dir/main.cpp.obj CMakeFiles/array.dir/circular_array.cpp.obj CMakeFiles/array.dir/circular_iterator.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\array.dir

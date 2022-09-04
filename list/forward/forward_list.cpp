@@ -3,7 +3,29 @@
 //
 
 #include "forward_list.h"
+#include "forward_iterator.h"
+
 #include <stdexcept>
+
+
+template<typename T>
+void forward_list<T>::_swap_(node<T> *&a, node<T> *&b) {
+    T temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
+
+template<typename T>
+T &forward_list<T>::_index_(const index_t &index) const{
+    if ((index > size()-1) || index < 0){
+        throw std::invalid_argument("Invalid argument, index out of range");
+    }
+    node<T>* iterable = head;
+    for (index_t i=0; i<index; ++i){
+        iterable = iterable->next;
+    }
+    return iterable->data;
+}
 
 template<typename T>
 forward_list<T>::forward_list()
@@ -128,6 +150,54 @@ T &forward_list<T>::back() {
 }
 
 template<typename T>
+T forward_list<T>::front() const {
+    if (empty()){
+        throw std::invalid_argument("Invalid operation, empty list");
+    }
+    return head->data;
+}
+
+template<typename T>
+T forward_list<T>::back() const {
+    if (empty()){
+        throw std::invalid_argument("Invalid operation, empty list");
+    }
+    return tail->data;
+}
+
+template<typename T>
+T &forward_list<T>::operator[](const index_t &index) {
+    return _index_(index);
+}
+
+template<typename T>
+T forward_list<T>::operator[](const index_t &index) const {
+    return _index_(index);
+}
+
+template<typename T>
+void forward_list<T>::sort(){
+    if (empty() || size()==1){
+        return;
+    }
+    node<T>* current_node = head;
+    while (!sorted()){
+        node<T>* current_minimum = current_node;
+        node<T>* current_item = current_node;
+
+        while (current_item != nullptr){
+            if (current_item->data < current_minimum->data){
+                current_minimum = current_item;
+            }
+            current_item = current_item->next;
+        }
+
+        _swap_(current_node, current_minimum);
+        current_node = current_node->next;
+    }
+}
+
+template<typename T>
 void forward_list<T>::clear() {
     while (head != nullptr){
         node<T>* temp = head;
@@ -145,4 +215,47 @@ std::ostream &operator<<(std::ostream &os, const forward_list<U> &list) {
         iterable = iterable->next;
     }
     return os;
+}
+
+template<typename T>
+typename forward_list<T>::iterator forward_list<T>::begin() {
+    return forward_iterator(head);
+}
+
+template<typename T>
+typename forward_list<T>::iterator forward_list<T>::end() {
+    return forward_iterator(tail->next);
+}
+
+template<typename T>
+T forward_iterator<T>::operator*() const {
+    return current->data;
+}
+
+template<typename T>
+T &forward_iterator<T>::operator*() {
+    return current->data;
+}
+
+template<typename T>
+forward_iterator<T> &forward_iterator<T>::operator++() {
+    this->current = current->next;
+    return *this;
+}
+
+template<typename T>
+forward_iterator<T> forward_iterator<T>::operator++(int) {
+    forward_iterator<T> temp = (*this);
+    ++(*this);
+    return temp;
+}
+
+template<typename T>
+bool forward_iterator<T>::operator==(const forward_iterator<T> &other) const {
+    return &current->data == &other.current->data;
+}
+
+template<typename T>
+bool forward_iterator<T>::operator!=(const forward_iterator<T> &other) const {
+    return !(this->operator==(other));
 }

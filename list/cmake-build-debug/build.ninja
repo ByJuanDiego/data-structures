@@ -51,21 +51,27 @@ build cmake_object_order_depends_target_list: phony || CMakeFiles/list.dir
 
 build CMakeFiles/list.dir/main.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/main.cpp || cmake_object_order_depends_target_list
   DEP_FILE = CMakeFiles\list.dir\main.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\list.dir
   OBJECT_FILE_DIR = CMakeFiles\list.dir
 
-build CMakeFiles/list.dir/node.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/node.cpp || cmake_object_order_depends_target_list
-  DEP_FILE = CMakeFiles\list.dir\node.cpp.obj.d
-  FLAGS = -g
+build CMakeFiles/list.dir/forward/node.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/forward/node.cpp || cmake_object_order_depends_target_list
+  DEP_FILE = CMakeFiles\list.dir\forward\node.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\list.dir
-  OBJECT_FILE_DIR = CMakeFiles\list.dir
+  OBJECT_FILE_DIR = CMakeFiles\list.dir\forward
 
-build CMakeFiles/list.dir/forward_list.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/forward_list.cpp || cmake_object_order_depends_target_list
-  DEP_FILE = CMakeFiles\list.dir\forward_list.cpp.obj.d
-  FLAGS = -g
+build CMakeFiles/list.dir/forward/forward_list.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/forward/forward_list.cpp || cmake_object_order_depends_target_list
+  DEP_FILE = CMakeFiles\list.dir\forward\forward_list.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\list.dir
-  OBJECT_FILE_DIR = CMakeFiles\list.dir
+  OBJECT_FILE_DIR = CMakeFiles\list.dir\forward
+
+build CMakeFiles/list.dir/forward/forward_iterator.cpp.obj: CXX_COMPILER__list_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/list/forward/forward_iterator.cpp || cmake_object_order_depends_target_list
+  DEP_FILE = CMakeFiles\list.dir\forward\forward_iterator.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  OBJECT_DIR = CMakeFiles\list.dir
+  OBJECT_FILE_DIR = CMakeFiles\list.dir\forward
 
 
 # =============================================================================
@@ -75,7 +81,7 @@ build CMakeFiles/list.dir/forward_list.cpp.obj: CXX_COMPILER__list_Debug C$:/Use
 #############################################
 # Link the executable list.exe
 
-build list.exe: CXX_EXECUTABLE_LINKER__list_Debug CMakeFiles/list.dir/main.cpp.obj CMakeFiles/list.dir/node.cpp.obj CMakeFiles/list.dir/forward_list.cpp.obj
+build list.exe: CXX_EXECUTABLE_LINKER__list_Debug CMakeFiles/list.dir/main.cpp.obj CMakeFiles/list.dir/forward/node.cpp.obj CMakeFiles/list.dir/forward/forward_list.cpp.obj CMakeFiles/list.dir/forward/forward_iterator.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\list.dir

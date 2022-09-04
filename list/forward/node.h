@@ -14,6 +14,7 @@ private:
     void _kill_self_();
 
 public:
+
     node<T>* next;
     T data;
 

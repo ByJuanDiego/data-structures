@@ -39,6 +39,9 @@
 			[
 				{
 					"fragment" : "-g"
+				},
+				{
+					"fragment" : "-std=gnu++1z"
 				}
 			],
 			"language" : "CXX",
@@ -127,12 +130,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "iterator.cpp",
+			"path" : "circular_iterator.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "iterator.h",
+			"path" : "circular_iterator.h",
 			"sourceGroupIndex" : 1
 		}
 	],

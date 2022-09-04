@@ -2,8 +2,8 @@
 // Created by Juan Diego on 9/2/2022.
 //
 
-#ifndef ARRAY_ITERATOR_H
-#define ARRAY_ITERATOR_H
+#ifndef ARRAY_CIRCULAR_ITERATOR_H
+#define ARRAY_CIRCULAR_ITERATOR_H
 
 #include <iostream>
 #include <cstddef>
@@ -45,4 +45,4 @@ public:
 
 
 
-#endif //ARRAY_ITERATOR_H
+#endif //ARRAY_CIRCULAR_ITERATOR_H

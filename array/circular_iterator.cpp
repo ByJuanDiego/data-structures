@@ -2,7 +2,7 @@
 // Created by Juan Diego on 9/2/2022.
 //
 
-#include "iterator.h"
+#include "circular_iterator.h"
 
 template<typename T>
 array_iterator<T>::array_iterator()

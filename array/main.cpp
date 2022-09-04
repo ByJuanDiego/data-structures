@@ -27,7 +27,7 @@ int main() {
     array.pop_back();
     array.pop_front();
 
-    for (const auto & i : array){
+    for (const int & i : array){
         cout << i << step;
     }
 
