@@ -11,8 +11,8 @@ forward_iterator<T>::forward_iterator()
 }
 
 template<typename T>
-forward_iterator<T>::forward_iterator(node<T>* nodo)
-: current(nodo)
+forward_iterator<T>::forward_iterator(forward_node<T>* node)
+: current(node)
 {
 }
 
@@ -20,4 +20,16 @@ template<typename T>
 forward_iterator<T>::forward_iterator(const forward_iterator<T> &other)
 : current(other.current)
 {
+}
+
+template<typename T>
+forward_iterator<T> forward_iterator<T>::operator++(int) {
+    forward_iterator<T> temp = (*this);
+    ++(*this);
+    return temp;
+}
+
+template<typename T>
+bool forward_iterator<T>::operator!=(const forward_iterator<T> &other) const {
+    return !(this->operator==(other));
 }

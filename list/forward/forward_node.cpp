@@ -2,26 +2,26 @@
 // Created by Juan Diego on 9/2/2022.
 //
 
-#include "node.h"
+#include "forward_node.h"
 
 template<typename T>
-node<T>::node()
+forward_node<T>::forward_node()
 : data(T()), next(nullptr)
 {
 }
 
 template<typename T>
-node<T>::node(const T &value)
+forward_node<T>::forward_node(const T &value)
 : data(value), next(nullptr)
 {
 }
 
 template<typename T>
-void node<T>::_kill_self_() {
+void forward_node<T>::_kill_self_() {
     next = nullptr;
 }
 
 template<typename T>
-node<T>::~node() {
+forward_node<T>::~forward_node() {
     _kill_self_();
 }

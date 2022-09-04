@@ -5,7 +5,7 @@
 #ifndef LIST_FORWARD_LIST_H
 #define LIST_FORWARD_LIST_H
 
-#include "node.cpp"
+#include "forward_node.cpp"
 #include "forward_iterator.cpp"
 #include <cstdlib>
 #include <iostream>
@@ -22,10 +22,10 @@ public:
 
 private:
 
-    node<T>* head;
-    node<T>* tail;
+    forward_node<T>* head;
+    forward_node<T>* tail;
     size_t nodes;
-    void _swap_(node<T>*& a, node<T>*& b);                                           // O(1)
+    void _swap_(forward_node<T>*& a, forward_node<T>*& b);                           // O(1)
     T& _index_(const index_t& index) const;                                          // O(n)
 
 public:

@@ -6,18 +6,18 @@
 #define LIST_FORWARD_ITERATOR_H
 
 template <typename T>
-class node;
+class forward_node;
 
 template <typename T>
 class forward_iterator {
 private:
 
-    node<T>* current;
+    forward_node<T>* current;
 
 public:
 
     forward_iterator();
-    explicit forward_iterator(node<T>* nodo);
+    explicit forward_iterator(forward_node<T>* nodo);
     forward_iterator(const forward_iterator<T>& other);
 
     forward_iterator<T>& operator++();

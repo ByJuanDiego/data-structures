@@ -9,7 +9,7 @@
 
 
 template<typename T>
-void forward_list<T>::_swap_(node<T> *&a, node<T> *&b) {
+void forward_list<T>::_swap_(forward_node<T> *&a, forward_node<T> *&b) {
     T temp = a->data;
     a->data = b->data;
     b->data = temp;
@@ -20,7 +20,7 @@ T &forward_list<T>::_index_(const index_t &index) const{
     if ((index > size()-1) || index < 0){
         throw std::invalid_argument("Invalid argument, index out of range");
     }
-    node<T>* iterable = head;
+    forward_node<T>* iterable = head;
     for (index_t i=0; i<index; ++i){
         iterable = iterable->next;
     }
@@ -62,7 +62,7 @@ bool forward_list<T>::sorted() const {
     if (empty() || size() == 1) {
         return true;
     }
-    node<T>* iterable = head;
+    forward_node<T>* iterable = head;
     while (iterable->next != nullptr){
         if (iterable->data > iterable->next->data){
             return false;
@@ -74,24 +74,24 @@ bool forward_list<T>::sorted() const {
 
 template<typename T>
 void forward_list<T>::push_front(const T& value) {
-    auto* nodo = new node<T>(value);
+    auto* node = new forward_node<T>(value);
     if (empty()){
-        head = tail = nodo;
+        head = tail = node;
     } else{
-        nodo->next = head;
-        head = nodo;
+        node->next = head;
+        head = node;
     }
     ++nodes;
 }
 
 template<typename T>
 void forward_list<T>::push_back(const T &value) {
-    auto* nodo = new node<T>(value);
+    auto* node = new forward_node<T>(value);
     if (empty()){
-        head = tail = nodo;
+        head = tail = node;
     } else{
-        tail->next = nodo;
-        tail = nodo;
+        tail->next = node;
+        tail = node;
     }
     ++nodes;
 }
@@ -102,9 +102,9 @@ T forward_list<T>::pop_front() {
         throw std::invalid_argument("Invalid operation, empty list");
     }
     T value = head->data;
-    node<T>* nodo = head;
+    forward_node<T>* node = head;
     head = head->next;
-    delete nodo;
+    delete node;
     --nodes;
     return value;
 }
@@ -120,7 +120,7 @@ T forward_list<T>::pop_back() {
         tail = head = nullptr;
     } else{
         value = tail->data;
-        node<T>* iterable = head;
+        forward_node<T>* iterable = head;
         while (iterable->next != tail){
             iterable = iterable->next;
         }
@@ -179,10 +179,10 @@ void forward_list<T>::sort(){
     if (empty() || size()==1){
         return;
     }
-    node<T>* current_node = head;
+    forward_node<T>* current_node = head;
     while (!sorted()){
-        node<T>* current_minimum = current_node;
-        node<T>* current_item = current_node;
+        forward_node<T>* current_minimum = current_node;
+        forward_node<T>* current_item = current_node;
 
         while (current_item != nullptr){
             if (current_item->data < current_minimum->data){
@@ -199,7 +199,7 @@ void forward_list<T>::sort(){
 template<typename T>
 void forward_list<T>::clear() {
     while (head != nullptr){
-        node<T>* temp = head;
+        forward_node<T>* temp = head;
         head = head->next;
         delete temp;
     }
@@ -208,7 +208,7 @@ void forward_list<T>::clear() {
 
 template<typename U>
 std::ostream &operator<<(std::ostream &os, const forward_list<U> &list) {
-    node<U>* iterable = list.head;
+    forward_node<U>* iterable = list.head;
     while (iterable != nullptr){
         os << iterable->data << " ";
         iterable = iterable->next;
@@ -238,23 +238,14 @@ T &forward_iterator<T>::operator*() {
 
 template<typename T>
 forward_iterator<T> &forward_iterator<T>::operator++() {
+    if (current == nullptr){
+        throw std::invalid_argument("Invalid operation, the current node is the end of the list");
+    }
     this->current = current->next;
     return *this;
 }
 
 template<typename T>
-forward_iterator<T> forward_iterator<T>::operator++(int) {
-    forward_iterator<T> temp = (*this);
-    ++(*this);
-    return temp;
-}
-
-template<typename T>
 bool forward_iterator<T>::operator==(const forward_iterator<T> &other) const {
     return &current->data == &other.current->data;
-}
-
-template<typename T>
-bool forward_iterator<T>::operator!=(const forward_iterator<T> &other) const {
-    return !(this->operator==(other));
 }
