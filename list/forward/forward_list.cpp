@@ -208,10 +208,8 @@ void forward_list<T>::clear() {
 
 template<typename U>
 std::ostream &operator<<(std::ostream &os, const forward_list<U> &list) {
-    forward_node<U>* iterable = list.head;
-    while (iterable != nullptr){
-        os << iterable->data << " ";
-        iterable = iterable->next;
+    for (const U& element : list){
+        os << element << " ";
     }
     return os;
 }

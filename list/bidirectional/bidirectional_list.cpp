@@ -156,10 +156,8 @@ void bidirectional_list<T>::clear() {
 
 template<typename U>
 std::ostream &operator<<(std::ostream &os, const bidirectional_list<U> &list) {
-    bidirectional_node<U>* iterable = list.head;
-    while (iterable != nullptr){
-        os << iterable->data << " ";
-        iterable = iterable->next;
+    for (const U& element: list){
+        os << element << " ";
     }
     return os;
 }
@@ -185,9 +183,6 @@ bidirectional_iterator<T>& bidirectional_iterator<T>::operator++() {
 
 template<typename T>
 bidirectional_iterator<T> &bidirectional_iterator<T>::operator--() {
-    if (current == nullptr){
-        throw std::invalid_argument("Invalid operation, the current node is the node before the beginning of the list");
-    }
     current = current->prev;
     return (*this);
 }

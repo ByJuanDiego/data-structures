@@ -55,8 +55,8 @@ public:
     template<typename U>
     friend std::ostream& operator<< (std::ostream& os, const bidirectional_list<U>& list); // O(n)
 
-    iterator begin();
-    iterator end();
+    iterator begin();                                                                      // O(1)
+    iterator end();                                                                        // O(1)
 
 };
 
