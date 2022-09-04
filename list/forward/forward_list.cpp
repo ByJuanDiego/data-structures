@@ -111,16 +111,15 @@ T forward_list<T>::pop_front() {
 
 template<typename T>
 T forward_list<T>::pop_back() {
+    T value;
     if (empty()){
         throw std::invalid_argument("Invalid operation, empty list");
     } else if (size() == 1){
-        T value = tail->data;
+        value = tail->data;
         delete tail;
         tail = head = nullptr;
-        --nodes;
-        return value;
     } else{
-        T value = tail->data;
+        value = tail->data;
         node<T>* iterable = head;
         while (iterable->next != tail){
             iterable = iterable->next;
@@ -128,9 +127,9 @@ T forward_list<T>::pop_back() {
         delete tail;
         tail = iterable;
         tail->next = nullptr;
-        --nodes;
-        return value;
     }
+    --nodes;
+    return value;
 }
 
 template<typename T>
