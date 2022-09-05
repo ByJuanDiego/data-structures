@@ -74,15 +74,15 @@ T& bidirectional_list<T>::_index_(const index_t &index) const{
 
 template<typename T>
 bidirectional_list<T>::bidirectional_list()
-        : nodes(0), head(nullptr), tail(nullptr)
+: nodes(0), head(nullptr), tail(nullptr)
 {
 }
 
 template<typename T>
 bidirectional_list<T>::bidirectional_list(const std::initializer_list<T> &list)
-        : nodes(0), head(nullptr), tail(nullptr)
+: nodes(0), head(nullptr), tail(nullptr)
 {
-    for  (const T& element: list){
+    for (const T& element: list){
         this->push_back(element);
     }
 }

@@ -327,4 +327,5 @@ T array_iterator<T>::operator*() const {
     return array->operator[](current);
 }
 
+
 #endif //ARRAY_CIRCULAR_ARRAY_H

@@ -1,7 +1,7 @@
 # ninja log v5
-1	192	6840499805696543	build.ninja	e1d086f59d174b2a
-2	288	6840494838263953	CMakeFiles/list.dir/main.cpp.obj	8b31230583e4c508
-289	500	6840494840421543	list.exe	d21b972c72220266
+1	152	6840513911083692	build.ninja	e1d086f59d174b2a
+2	306	6840499809023674	CMakeFiles/list.dir/main.cpp.obj	8b31230583e4c508
+311	465	6840499810647554	list.exe	54278bad77732a04
 30	128	6839723640354498	CMakeFiles/list.dir/forward/node.cpp.obj	bf2ea39658db7595
 23	115	6840231494558318	CMakeFiles/list.dir/bidirectional/bidirectional_iterator.cpp.obj	63ba6e4b1e04c23
 89	254	6840137469054803	CMakeFiles/list.dir/forward/forward_node.cpp.obj	654e8500584f359b
@@ -9,6 +9,3 @@
 40	239	6840137469052765	CMakeFiles/list.dir/bidirectional/bidirectional_node.cpp.obj	3c99731dc186ded1
 30	111	6840231494540802	CMakeFiles/list.dir/forward/forward_iterator.cpp.obj	4440ec3641b235f
 2	240	6840494696253876	CMakeFiles/list.dir/bidirectional/bidirectional_list.cpp.obj	3ba06038f8394d65
-1	152	6840499805696543	build.ninja	e1d086f59d174b2a
-2	306	6840499809023674	CMakeFiles/list.dir/main.cpp.obj	8b31230583e4c508
-311	465	6840499810647554	list.exe	54278bad77732a04

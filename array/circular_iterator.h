@@ -5,9 +5,8 @@
 #ifndef ARRAY_CIRCULAR_ITERATOR_H
 #define ARRAY_CIRCULAR_ITERATOR_H
 
+#include <cstdlib>
 #include <iostream>
-#include <cstddef>
-
 using index_t =  ssize_t;
 
 template <typename T>
