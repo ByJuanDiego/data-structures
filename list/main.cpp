@@ -1,5 +1,6 @@
-#include "forward/forward_list.cpp"
-#include "bidirectional/bidirectional_list.cpp"
+#include <iostream>
+#include "forward/forward_list.h"
+#include "bidirectional/bidirectional_list.h"
 using std::cout;
 using std::endl;
 using std::boolalpha;
@@ -17,6 +18,5 @@ int main() {
         cout << i << ' ';
     }
     cout << endl;
-
     return 0;
 }

@@ -1,10 +1,12 @@
 # ninja log v5
-4	525	6839406710466278	CMakeFiles/array.dir/main.cpp.obj	20ed9c901324009f
-21	418	6839405147351734	CMakeFiles/array.dir/iterator.cpp.obj	680437075860f652
-525	768	6839406712912077	array.exe	3439b1c161e60dbd
-14	426	6839405147389208	CMakeFiles/array.dir/circular_array.cpp.obj	35d467cdee313fe0
-3	203	6839735269746741	build.ninja	6b99101c48c81052
-11	392	6839735274015178	CMakeFiles/array.dir/circular_iterator.cpp.obj	e3d9cfaa5bae1c17
+2	352	6840489942460915	CMakeFiles/array.dir/main.cpp.obj	66ae704cb9a8c006
+360	513	6840489944138672	array.exe	2c0bafcfea62f606
 18	408	6839735274048021	CMakeFiles/array.dir/circular_array.cpp.obj	91bbba21468a594
-3	471	6839735274872594	CMakeFiles/array.dir/main.cpp.obj	66ae704cb9a8c006
-472	680	6839735276942642	array.exe	c93545251aa798c1
+1	168	6840501203086996	build.ninja	6b99101c48c81052
+11	392	6839735274015178	CMakeFiles/array.dir/circular_iterator.cpp.obj	e3d9cfaa5bae1c17
+2	340	6840506327336058	CMakeFiles/array.dir/main.cpp.obj	66ae704cb9a8c006
+341	482	6840506328820580	array.exe	2c0bafcfea62f606
+2	320	6840507086622870	CMakeFiles/array.dir/main.cpp.obj	66ae704cb9a8c006
+321	457	6840507088020465	array.exe	2c0bafcfea62f606
+3	313	6840507257011101	CMakeFiles/array.dir/main.cpp.obj	66ae704cb9a8c006
+314	423	6840507258134181	array.exe	2c0bafcfea62f606

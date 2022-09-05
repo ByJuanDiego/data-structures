@@ -1,0 +1,13 @@
+# ninja log v5
+11	299	6840477892422027	CMakeFiles/stack.dir/stack.cpp.obj	9e3d5cef0a14ea6d
+1	164	6840481381006300	build.ninja	d266871b5de0e28d
+2	309	6840479892441043	CMakeFiles/stack.dir/main.cpp.obj	7aaf1e43267ff49
+310	484	6840479894230087	stack.exe	c0a15d5dec9db1f9
+2	678	6840482051868905	CMakeFiles/stack.dir/main.cpp.obj	7aaf1e43267ff49
+679	885	6840482054010722	stack.exe	c0a15d5dec9db1f9
+2	710	6840482204794771	CMakeFiles/stack.dir/main.cpp.obj	7aaf1e43267ff49
+710	873	6840482206513840	stack.exe	c0a15d5dec9db1f9
+2	647	6840482879776568	CMakeFiles/stack.dir/main.cpp.obj	7aaf1e43267ff49
+647	815	6840482881500223	stack.exe	c0a15d5dec9db1f9
+2	636	6840483225917006	CMakeFiles/stack.dir/main.cpp.obj	7aaf1e43267ff49
+636	813	6840483227733667	stack.exe	c0a15d5dec9db1f9

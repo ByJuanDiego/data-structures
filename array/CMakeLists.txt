@@ -3,4 +3,4 @@ project(array)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(array main.cpp circular_array.h circular_array.cpp circular_iterator.cpp circular_iterator.h)
+add_executable(array main.cpp circular_array.h circular_iterator.h)
