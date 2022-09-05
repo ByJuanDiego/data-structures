@@ -48,12 +48,19 @@ public:
     [[nodiscard]] T operator[](index_t index) const;                                       // O(n)
 
     void clear();                                                                          // O(n)
+    void reverse();                                                                        // O(n)
+    void insert(const T& value, const index_t& index);                                     // O(n)
 
     template<typename U>
     friend std::ostream& operator<< (std::ostream& os, const bidirectional_list<U>& list); // O(n)
 
     iterator begin();                                                                      // O(1)
     iterator end();                                                                        // O(1)
+
+    // Ejercicios
+    [[nodiscard]] bidirectional_list<T> sorted_join(const bidirectional_list<T>& other);    // O(n)
+    [[nodiscard]] bool is_palindrome() const;                                               // O(n)
+    void sorted_insert(const T& value);                                                     // O(n)
 
 };
 
@@ -206,6 +213,43 @@ void bidirectional_list<T>::clear() {
     nodes = 0;
 }
 
+template<typename T>
+void bidirectional_list<T>::reverse() {
+    if (size() > 1){
+        bidirectional_node<T>* front_node = head;
+        bidirectional_node<T>* back_node = tail;
+        for (index_t i=0; i<size()/2; ++i){
+            T temp = front_node->data;
+            front_node->data = back_node->data;
+            back_node->data = temp;
+            front_node = front_node->next;
+            back_node = back_node->prev;
+        }
+    }
+}
+
+template<typename T>
+void bidirectional_list<T>::insert(const T& value, const index_t & index) {
+    if (index < 0 || index > size()){
+        throw std::invalid_argument("Invalid operation, index out of range");
+    } else if (index == 0){
+        push_front(value);
+    } else if (index == size()){
+        push_back(value);
+    } else{
+        auto* node = new bidirectional_node<T>(value);
+        bidirectional_node<T>* iterable = head;
+        for (index_t i=0; i<index; ++i){
+            iterable = iterable->next;
+        }
+        iterable->prev->next = node;
+        node->prev = iterable->prev;
+        node->next = iterable;
+        iterable->prev = node;
+        ++nodes;
+    }
+}
+
 template<typename U>
 std::ostream &operator<<(std::ostream &os, const bidirectional_list<U> &list) {
     for (const U& element: list){
@@ -222,6 +266,60 @@ typename bidirectional_list<T>::iterator bidirectional_list<T>::begin() {
 template<typename T>
 typename bidirectional_list<T>::iterator bidirectional_list<T>::end() {
     return bidirectional_list::iterator(tail->next);
+}
+
+template<typename T>
+bool bidirectional_list<T>::is_palindrome() const {
+    std::string word;
+    std::string reverse_word;
+    for (index_t i=0; i<size(); ++i){
+        word+= std::to_string((*this)[i]);
+        reverse_word+=std::to_string((*this)[size()-1-i]);
+    }
+    return (word == reverse_word);
+}
+
+template<typename T>
+void bidirectional_list<T>::sorted_insert(const T &value) {
+    auto* node = new bidirectional_node<T>(value);
+    if (empty()){
+        head = tail = node;
+    } else if (size() == 1){
+        (head->data > node->data)? (this->push_front(value)):(this->push_back(value));
+    } else {
+        bidirectional_node<T>* iterable = head;
+        while (iterable->next != nullptr){
+            if (iterable->data > node->data){
+                iterable->prev->next = node;
+                node->prev = iterable->prev;
+                node->next = iterable;
+                iterable->prev = node;
+                break;
+            }
+            iterable = iterable->next;
+        }
+    }
+    ++nodes;
+}
+
+template<typename T>
+bidirectional_list<T> bidirectional_list<T>::sorted_join(const bidirectional_list<T> &other) {
+    bidirectional_list<T> result;
+    bidirectional_node<T>* node1 = this->head;
+    bidirectional_node<T>* node2 = other.head;
+
+    while (node1 != nullptr || node2 != nullptr) {
+        if (node1 != nullptr && node2 != nullptr)
+        {// Si ambas listas aún tienen elementos por recorrer se busca al menor para agregarlo a la lista
+            result.push_back((node1->data < node2->data) ? (node1->data) : (node2->data));
+            (node1->data < node2->data) ? (node1 = node1->next) : (node2 = node2->next);
+        } else
+        {// Si alguno de los heads de las 2 listas es NULL, se asigna directamente el valor de la lista que aún falta recorrer
+            result.push_back((node1 == nullptr) ? (node2->data) : (node1->data));
+            (node1 == nullptr) ? (node2 = node2->next) : (node1 = node1->next);
+        }
+    }
+    return result;
 }
 
 
