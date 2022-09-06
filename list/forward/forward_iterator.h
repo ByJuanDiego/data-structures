@@ -28,6 +28,8 @@ public:
 
     [[nodiscard]] T& operator*();
     [[nodiscard]] T operator*() const;
+    [[nodiscard]] T* operator->();
+
 };
 
 template<typename T>
@@ -88,5 +90,12 @@ T forward_iterator<T>::operator*() const {
     return current->data;
 }
 
+template<typename T>
+T* forward_iterator<T>::operator->(){
+    if (current == nullptr){
+        throw std::invalid_argument("Invalid argument, the iterator points to nullptr");
+    }
+    return &current->data;
+}
 
 #endif //LIST_FORWARD_ITERATOR_H

@@ -34,7 +34,7 @@ void print_hash(chain_hash<KeyType, ValueType>& hash){
     for (int i=0; i < hash.bucket_count(); ++i){
         cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements:" << endl;
         for (auto it = hash.begin(i); it != hash.end(i); ++it){
-            cout << "[" << (*it).key << ":" << (*it).value << "]" << endl;
+            cout << "[" << it->key << ":" << it->value << "]" << endl;
         }
     }
 }
