@@ -43,7 +43,17 @@ void bidirectional_test(){
     cout << bl5.size() << endl;
 }
 
+void test(){
+    forward_list<int> fl {1};
+    fl.remove_once_if([](int i){return i==1;});
+    std::cout << fl.empty() << std::endl;
+    for (auto it = fl.begin(); it != fl.end(); ++it){
+        cout << *it << " ";
+    }
+}
+
 int main() {
-    bidirectional_test();
+    //bidirectional_test();
+    test();
     return 0;
 }

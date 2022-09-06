@@ -53,8 +53,11 @@ public:
     void sort();                                                                     // O(n²)
     void clear();                                                                    // O(n)
 
+    template<typename Function>
+    void remove_once_if(const Function& function);                                   // O(n)
+
     template<typename U>
-    friend std::ostream& operator<< (std::ostream& os, const forward_list<U>& list); // O(n)
+    friend std::ostream& operator<< (std::ostream& os, forward_list<U>& list);       // O(n)
 
     iterator begin();                                                                // O(1)
     iterator end();                                                                  // O(1)
@@ -260,9 +263,39 @@ void forward_list<T>::clear() {
     nodes = 0;
 }
 
+template<typename T>
+template<typename Function>
+void forward_list<T>::remove_once_if(const Function &function) {
+    if (empty()){
+        return;
+    }
+    if (function(head->data)){
+        pop_front();
+        return;
+    }
+    forward_node<T>* observer = head;
+    forward_node<T>* iterable = head->next;
+    while (iterable->next != nullptr){
+        if (function(iterable->data)){
+            forward_node<T>* node = iterable;
+            observer->next = node->next;
+            iterable = node->next;
+            delete node;
+            --nodes;
+            return;
+        }
+        observer = observer->next;
+        iterable = iterable->next;
+    }
+    if (function(tail->data)){
+        pop_back();
+        return;
+    }
+}
+
 template<typename U>
-std::ostream &operator<<(std::ostream &os, const forward_list<U> &list) {
-    for (const U& element : list){
+std::ostream &operator<<(std::ostream &os, forward_list<U> &list) {
+    for (U& element : list){
         os << element << " ";
     }
     return os;
@@ -275,6 +308,9 @@ typename forward_list<T>::iterator forward_list<T>::begin() {
 
 template<typename T>
 typename forward_list<T>::iterator forward_list<T>::end() {
+    if (empty()){
+        return forward_iterator(head);
+    }
     return forward_iterator(tail->next);
 }
 

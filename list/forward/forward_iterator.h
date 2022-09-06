@@ -66,7 +66,11 @@ forward_iterator<T> forward_iterator<T>::operator++(int) {
 
 template<typename T>
 bool forward_iterator<T>::operator==(const forward_iterator<T> &other) const {
-    return &current->data == &other.current->data;
+    return (
+        (current == nullptr && other.current == nullptr)
+        ||
+        (&current->data == &other.current->data)
+    );
 }
 
 template<typename T>
