@@ -55,4 +55,6 @@ int main(){
     cout << std::string(120, '-');
     map.remove("MICKELSON LORENE P");
     print_hash<string, string>(map);
+
+    return 0;
 }
