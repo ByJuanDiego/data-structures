@@ -32,11 +32,10 @@ void print_hash(chain_hash<KeyType, ValueType>& hash){
     cout << "Size of Hash Table: " << hash.bucket_count() << endl;
     cout << "Number of elements: " << hash.get_size() << endl;
     for (int i=0; i < hash.bucket_count(); ++i){
-        cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements ";
+        cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements:" << endl;
         for (auto it = hash.begin(i); it != hash.end(i); ++it){
-            cout << "[" << (*it).key << ":" << (*it).value << "] ";
+            cout << "[" << (*it).key << ":" << (*it).value << "]" << endl;
         }
-        cout << "\n";
     }
 }
 
@@ -55,6 +54,5 @@ int main(){
     cout << map["MICKELSON LORENE P"] << endl;
     cout << std::string(120, '-');
     map.remove("MICKELSON LORENE P");
-    cout << map.get_size() << endl;
     print_hash<string, string>(map);
 }

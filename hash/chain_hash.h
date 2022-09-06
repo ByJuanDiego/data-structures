@@ -111,6 +111,7 @@ void chain_hash<KeyType, ValueType>::rehashing() {
         }
     }
     capacity *= 2;
+    delete array;
     array = temp;
 }
 
