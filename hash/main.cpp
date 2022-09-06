@@ -27,7 +27,8 @@ vector<pair<string, string>> loadCSV(const string& file){
     return data;
 }
 
-void print_hash(chain_hash<string, string>& hash){
+template<typename KeyType, typename ValueType>
+void print_hash(chain_hash<KeyType, ValueType>& hash){
     cout << "Size of Hash Table: " << hash.bucket_count() << endl;
     cout << "Number of elements: " << hash.get_size() << endl;
     for (int i=0; i < hash.bucket_count(); ++i){
@@ -45,13 +46,15 @@ int main(){
 
     for (std::pair<string, string>& par : data) {
         map.insert(par.first, par.second);
+        // cout << map.get_size() << endl;
     }
 
-    print_hash(map);
+    print_hash<string, string>(map);
     cout << std::string(120, '-');
     cout << map.get("MICKELSON LORENE P") << endl;
     cout << map["MICKELSON LORENE P"] << endl;
     cout << std::string(120, '-');
     map.remove("MICKELSON LORENE P");
-    print_hash(map);
+    cout << map.get_size() << endl;
+    print_hash<string, string>(map);
 }
