@@ -33,7 +33,7 @@ void print_hash(chain_hash<KeyType, ValueType>& hash){
     cout << "Number of elements: " << hash.get_size() << endl;
     for (int i=0; i < hash.bucket_count(); ++i){
         cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements:" << endl;
-        for (auto it = hash.begin(i); it != hash.end(i); ++it){
+        for (forward_iterator<chain_hash<string, string>::triplet> it = hash.begin(i); it != hash.end(i); ++it){
             cout << "[" << it->key << ":" << it->value << "]" << endl;
         }
     }
@@ -45,7 +45,6 @@ int main(){
 
     for (std::pair<string, string>& par : data) {
         map.insert(par.first, par.second);
-        // cout << map.get_size() << endl;
     }
 
     print_hash<string, string>(map);

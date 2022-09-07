@@ -14,7 +14,7 @@ constexpr float max_collision = 3;
 template <typename KeyType, typename ValueType>
 class chain_hash{
 
-private:
+public:
 
     struct triplet{
         KeyType key;
@@ -24,8 +24,9 @@ private:
         triplet();
         triplet(const chain_hash::triplet& other);
         explicit triplet(const KeyType& key, const ValueType& value, const size_t& hash_code);
-
     };
+
+private:
 
     forward_list<triplet>* array;
     std::hash<KeyType> hash_functor;
@@ -34,25 +35,30 @@ private:
 
 public:
 
-    chain_hash();
-    explicit chain_hash(const size_t& capacity);
+    chain_hash();                                                            // O(1)
+    explicit chain_hash(const size_t& capacity);                             // O(n)
 
-    [[nodiscard]] size_t bucket_count() const;
-    [[nodiscard]] size_t bucket_size(const size_t& i_bucket) const;
-    [[nodiscard]] size_t get_size() const;
-    [[nodiscard]] bool empty(const size_t& i_bucket) const;
-    [[nodiscard]] float fill_factor() const;
-    void rehashing();
-    void insert(const KeyType& key, const ValueType& value);
-    void remove(const KeyType& key);
+    [[nodiscard]] size_t bucket_count() const;                               // O(1)
+    [[nodiscard]] size_t bucket_size(const size_t& i_bucket) const;          // O(1)
+    [[nodiscard]] bool bucket_empty(const size_t& i_bucket) const;           // O(1)
 
-    ValueType& get(const KeyType& key) const;
-    ValueType& operator[](const KeyType& key);
-    ValueType operator[](const KeyType& key) const;
+    [[nodiscard]] size_t get_size() const;                                   // O(1)
+    [[nodiscard]] float fill_factor() const;                                 // O(1)
 
-    typename forward_list<triplet>::iterator begin(const index_t& i_bucket);
-    typename forward_list<triplet>::iterator end(const index_t& i_bucket);
+    void rehashing();                                                        // O(n)
+    // k := cantidad promedio de elementos en cada bucket
+    void insert(const KeyType& key, const ValueType& value);                 // O(n), θ(k)
+    void remove(const KeyType& key);                                         // O(n), θ(k)
+
+    ValueType& get(const KeyType& key) const;                                // O(n), θ(k)
+    ValueType& operator[](const KeyType& key);                               // O(n), θ(k)
+    ValueType operator[](const KeyType& key) const;                          // O(n), θ(k)
+
+    typename forward_list<triplet>::iterator begin(const index_t& i_bucket); // O(1)
+    typename forward_list<triplet>::iterator end(const index_t& i_bucket);   // O(1)
+
 };
+
 
 template<typename KeyType, typename ValueType>
 chain_hash<KeyType, ValueType>::triplet::triplet()
@@ -97,8 +103,13 @@ size_t chain_hash<KeyType, ValueType>::get_size() const{
 }
 
 template<typename KeyType, typename ValueType>
+bool chain_hash<KeyType, ValueType>::bucket_empty(const size_t &i_bucket) const {
+    return array[i_bucket].empty();
+}
+
+template<typename KeyType, typename ValueType>
 float chain_hash<KeyType, ValueType>::fill_factor() const {
-    return size / (capacity * max_collision);
+    return (size) / (capacity * max_collision);
 }
 
 template<typename KeyType, typename ValueType>
@@ -122,7 +133,6 @@ void chain_hash<KeyType, ValueType>::insert(const KeyType &key, const ValueType 
     }
     size_t hash_code = hash_functor(key);
     index_t index = hash_code % capacity;
-
     // TODO: determinar si la llave ya existe
     for (triplet &element: array[index]) {
         if (element.key == key) {
@@ -130,7 +140,6 @@ void chain_hash<KeyType, ValueType>::insert(const KeyType &key, const ValueType 
             return;
         }
     }
-
     array[index].push_front(chain_hash<KeyType, ValueType>::triplet(key, value, hash_code));
     ++size;
 }
@@ -177,11 +186,6 @@ typename forward_list<typename chain_hash<KeyType, ValueType>::triplet>::iterato
 template<typename KeyType, typename ValueType>
 typename forward_list<typename chain_hash<KeyType, ValueType>::triplet>::iterator chain_hash<KeyType, ValueType>::end(const index_t&i_bucket) {
     return array[i_bucket].end();
-}
-
-template<typename KeyType, typename ValueType>
-bool chain_hash<KeyType, ValueType>::empty(const size_t &i_bucket) const {
-    return array[i_bucket].empty();
 }
 
 
