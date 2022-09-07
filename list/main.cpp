@@ -1,11 +1,14 @@
 #include <iostream>
+#include <functional>
 #include "forward/forward_list.h"
 #include "bidirectional/bidirectional_list.h"
 using std::cout;
 using std::endl;
 using std::boolalpha;
 
-void bidirectional_test(){
+void test1(){
+    cout << __PRETTY_FUNCTION__ << endl;
+
     bidirectional_list<int> bl {10};
     bl.sorted_insert(6);
     for (int i: bl){
@@ -43,17 +46,32 @@ void bidirectional_test(){
     cout << bl5.size() << endl;
 }
 
-void test(){
-    forward_list<int> fl {1};
+void test2(){
+    cout << __PRETTY_FUNCTION__ << endl;
+
+    forward_list<int> fl {1, 3, 2};
+    cout << fl << endl;
     fl.remove_once_if([](int i){return i==1;});
-    std::cout << fl.empty() << std::endl;
-    for (auto it = fl.begin(); it != fl.end(); ++it){
-        cout << *it << " ";
+    cout << fl << endl;
+}
+
+void test3(){
+    cout << __PRETTY_FUNCTION__ << endl;
+
+    std::function<bool(int)> lambda = [](const int& i)->bool {
+        return i==1;
+    };
+    forward_list<int> fl {2, 1, 2, 1, 4, 1, 2,  3, 4, 5};
+    cout << fl << endl;
+    while (fl.find_if(lambda)){
+        fl.remove_once_if(lambda);
     }
+    cout << fl << endl;
 }
 
 int main() {
-    //bidirectional_test();
-    test();
+    test1();
+    test2();
+    test3();
     return 0;
 }

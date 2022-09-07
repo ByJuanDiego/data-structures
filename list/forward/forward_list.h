@@ -55,6 +55,8 @@ public:
 
     template<typename Function>
     void remove_once_if(const Function& function);                                   // O(n)
+    template<typename Function>
+    bool find_if(const Function& function);                                          // O(n)
 
     template<typename U>
     friend std::ostream& operator<< (std::ostream& os, forward_list<U>& list);       // O(n)
@@ -291,6 +293,17 @@ void forward_list<T>::remove_once_if(const Function &function) {
         pop_back();
         return;
     }
+}
+
+template<typename T>
+template<typename Function>
+bool forward_list<T>::find_if(const Function& function){
+    for (const T& element: (*this)){
+        if (function(element)){
+            return true;
+        }
+    }
+    return false;
 }
 
 template<typename U>
