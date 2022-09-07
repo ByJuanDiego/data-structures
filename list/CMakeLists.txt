@@ -13,4 +13,8 @@ add_executable(${PROJECT_NAME} main.cpp
         bidirectional/bidirectional_list.h
         bidirectional/bidirectional_iterator.h
 
+        circular/circular_list.h
+        circular/circular_node.h
+        circular/circular_iterator.h
+
 )

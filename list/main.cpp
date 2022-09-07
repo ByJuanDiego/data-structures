@@ -2,6 +2,7 @@
 #include <functional>
 #include "forward/forward_list.h"
 #include "bidirectional/bidirectional_list.h"
+#include "circular/circular_list.h"
 using std::cout;
 using std::endl;
 using std::boolalpha;
@@ -69,9 +70,52 @@ void test3(){
     cout << fl << endl;
 }
 
+void test4(){
+    cout << __PRETTY_FUNCTION__ << endl;
+    circular_list<int> cl;
+    cout << "empty: " << boolalpha << cl.empty() << endl;
+    cout << "empty front: " << cl.front() << endl;
+    cl.push_front(3);
+    cl.push_front(5);
+    cl.push_back(0);
+    cl.push_back(10);
+    cout << cl << endl;
+    cout << "deleted element: " << cl.pop_back() << endl;
+    cout << "list: " << cl << endl;
+    cout << "deleted element: " << cl.pop_front() << endl;
+    cout << "list: " << cl << endl;
+    cout << "front: " << cl.front() << endl;
+    cout << "back: " << cl.back() << endl;
+    cl.front() = cl.back() = -1;
+    cout << cl << endl;
+
+    const circular_list<int> c_cl {1, 2, 3, 4, 5};
+    cout << "const list: " << c_cl << endl;
+    cout << "front: " << c_cl.front() << endl;
+    cout << "back: " << c_cl.back() << endl;
+    cout << "size: " << c_cl.size() << endl;
+}
+
+void test5(){
+    cout << __PRETTY_FUNCTION__ << endl;
+    circular_list<int> cl {1, 2, 3, 4};
+    cout << "list: " << cl << endl;
+    cl.clear();
+    cout << "empty: " << boolalpha << cl.empty() << endl;
+    cl.push_front(4);
+    cl.push_back(5);
+    cout << "list: " << cl << endl;
+    cl.pop_back();
+    cl.pop_front();
+    cl.push_front(-1);
+    cout << "list: " << cl << endl;
+}
+
 int main() {
     test1();
     test2();
     test3();
+    test4();
+    test5();
     return 0;
 }
