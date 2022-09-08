@@ -50,7 +50,7 @@ public:
     void insert(const KeyType& key, const ValueType& value);                 // O(n), θ(k)
     void remove(const KeyType& key);                                         // O(n), θ(k)
 
-    ValueType& get(const KeyType& key);                                // O(n), θ(k)
+    ValueType& get(const KeyType& key);                                      // O(n), θ(k)
     ValueType& operator[](const KeyType& key);                               // O(n), θ(k)
     ValueType operator[](const KeyType& key) const;                          // O(n), θ(k)
 
