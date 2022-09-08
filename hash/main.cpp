@@ -47,6 +47,7 @@ int main(){
         map.insert(par.first, par.second);
     }
 
+    map["MICKELSON LORENE P"] = "AAAA";
     print_hash<string, string>(map);
     cout << std::string(120, '-');
     cout << map.get("MICKELSON LORENE P") << endl;
