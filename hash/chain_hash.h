@@ -116,9 +116,9 @@ template<typename KeyType, typename ValueType>
 void chain_hash<KeyType, ValueType>::rehashing() {
     auto* temp = new forward_list<triplet>[capacity * 2];
     for (size_t i=0; i<bucket_count(); ++i){
-        for (const chain_hash<KeyType, ValueType>::triplet & triplet: array[i]){
-            size_t index = triplet.hash_code % (this->capacity * 2);
-            temp[index].push_front(chain_hash<KeyType, ValueType>::triplet(triplet.key, triplet.value, triplet.hash_code));
+        for (const triplet & element: array[i]){
+            size_t index = element.hash_code % (this->capacity * 2);
+            temp[index].push_front(triplet(element.key, element.value, element.hash_code));
         }
     }
     capacity *= 2;
@@ -137,9 +137,10 @@ void chain_hash<KeyType, ValueType>::insert(const KeyType &key, const ValueType 
     for (triplet &element: array[index]) {
         if (element.key == key) {
             element.value = value;
+            return;
         }
     }
-    array[index].push_front(chain_hash<KeyType, ValueType>::triplet(key, value, hash_code));
+    array[index].push_front(triplet(key, value, hash_code));
     ++size;
     if (fill_factor() >= max_fill_factor){
         rehashing();
@@ -150,11 +151,11 @@ template<typename KeyType, typename ValueType>
 void chain_hash<KeyType, ValueType>::remove(const KeyType& key) {
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
-    array[index].remove_once_if([&](chain_hash<KeyType, ValueType>::triplet& triplet){
-        if (triplet.key == key) {
+    array[index].remove_once_if([&](triplet& element){
+        if (element.key == key) {
             --size;
         }
-        return triplet.key == key;
+        return element.key == key;
     });
 }
 
@@ -162,9 +163,9 @@ template<typename KeyType, typename ValueType>
 ValueType chain_hash<KeyType, ValueType>::get(const KeyType &key){
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
-    for (triplet& triplet: array[index]){
-        if (triplet.key == key){
-            return triplet.value;
+    for (triplet& element: array[index]){
+        if (element.key == key){
+            return element.value;
         }
     }
     throw std::invalid_argument("Invalid operation, the key is not in the hash");
@@ -174,35 +175,29 @@ template<typename KeyType, typename ValueType>
 ValueType& chain_hash<KeyType, ValueType>::operator[](const KeyType &key) {
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
-    triplet* pointer = nullptr;
-    for (triplet& triplet: array[index]){
-        if (triplet.key == key){
-            pointer = &triplet;
+    for (triplet& element: array[index]){
+        if (element.key == key){
+            return element.value;
         }
     }
-    if (pointer != nullptr){
-        return pointer->value;
-    }
-
     insert(key, ValueType());
     // TODO: Tras la llamada al metodo insert, el capacity puede variar, por lo que se recalcula el index
     index = hash_code % capacity;
-    for (triplet& triplet: array[index]){
-        if (triplet.key == key){
-            pointer = &triplet;
-            return pointer->value;
+    for (triplet& element: array[index]){
+        if (element.key == key){
+            return element.value;
         }
     }
-    return pointer->value;
+    throw std::invalid_argument("An error occurred, ValueType& was expected to be returned");
 }
 
 template<typename KeyType, typename ValueType>
 ValueType chain_hash<KeyType, ValueType>::operator[](const KeyType &key) const {
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
-    for (triplet& triplet: array[index]){
-        if (triplet.key == key){
-            return triplet.value;
+    for (triplet& element: array[index]){
+        if (element.key == key){
+            return element.value;
         }
     }
     throw std::invalid_argument("Invalid operation in const hash, the key is not in the hash");
