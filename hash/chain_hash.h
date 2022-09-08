@@ -50,7 +50,7 @@ public:
     void insert(const KeyType& key, const ValueType& value);                 // O(n), θ(k)
     void remove(const KeyType& key);                                         // O(n), θ(k)
 
-    ValueType& get(const KeyType& key);                                      // O(n), θ(k)
+    ValueType get(const KeyType& key);                                       // O(n), θ(k)
     ValueType& operator[](const KeyType& key);                               // O(n), θ(k)
     ValueType operator[](const KeyType& key) const;                          // O(n), θ(k)
 
@@ -137,11 +137,13 @@ void chain_hash<KeyType, ValueType>::insert(const KeyType &key, const ValueType 
     for (triplet &element: array[index]) {
         if (element.key == key) {
             element.value = value;
-            return;
         }
     }
     array[index].push_front(chain_hash<KeyType, ValueType>::triplet(key, value, hash_code));
     ++size;
+    if (fill_factor() >= max_fill_factor){
+        rehashing();
+    }
 }
 
 template<typename KeyType, typename ValueType>
@@ -157,7 +159,7 @@ void chain_hash<KeyType, ValueType>::remove(const KeyType& key) {
 }
 
 template<typename KeyType, typename ValueType>
-ValueType &chain_hash<KeyType, ValueType>::get(const KeyType &key) {
+ValueType chain_hash<KeyType, ValueType>::get(const KeyType &key){
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
     for (triplet& triplet: array[index]){
@@ -165,19 +167,45 @@ ValueType &chain_hash<KeyType, ValueType>::get(const KeyType &key) {
             return triplet.value;
         }
     }
-    insert(key, ValueType());
-    return get(key);
-    // throw std::invalid_argument("Invalid operation, the key is not in the hash");
+    throw std::invalid_argument("Invalid operation, the key is not in the hash");
 }
 
 template<typename KeyType, typename ValueType>
-ValueType &chain_hash<KeyType, ValueType>::operator[](const KeyType &key) {
-    return get(key);
+ValueType& chain_hash<KeyType, ValueType>::operator[](const KeyType &key) {
+    size_t hash_code = hash_functor(key);
+    size_t index = hash_code % capacity;
+    triplet* pointer = nullptr;
+    for (triplet& triplet: array[index]){
+        if (triplet.key == key){
+            pointer = &triplet;
+        }
+    }
+    if (pointer != nullptr){
+        return pointer->value;
+    }
+
+    insert(key, ValueType());
+    // TODO: Tras la llamada al metodo insert, el capacity puede variar, por lo que se recalcula el index
+    index = hash_code % capacity;
+    for (triplet& triplet: array[index]){
+        if (triplet.key == key){
+            pointer = &triplet;
+            return pointer->value;
+        }
+    }
+    return pointer->value;
 }
 
 template<typename KeyType, typename ValueType>
 ValueType chain_hash<KeyType, ValueType>::operator[](const KeyType &key) const {
-    return get(key);
+    size_t hash_code = hash_functor(key);
+    size_t index = hash_code % capacity;
+    for (triplet& triplet: array[index]){
+        if (triplet.key == key){
+            return triplet.value;
+        }
+    }
+    throw std::invalid_argument("Invalid operation in const hash, the key is not in the hash");
 }
 
 template<typename KeyType, typename ValueType>

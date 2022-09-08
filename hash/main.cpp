@@ -39,22 +39,23 @@ void print_hash(chain_hash<KeyType, ValueType>& hash){
     }
 }
 
-int main(){
+void ejemplo1(){
     vector<pair<string, string>> data = loadCSV("smalldata.csv");
     chain_hash<string, string> map;
 
-    for (std::pair<string, string>& par : data) {
-        map.insert(par.first, par.second);
+    for (auto& [EmployeeName, JobTitle] : data){
+        map[EmployeeName] = JobTitle;
     }
-
-    map["MICKELSO LORENE P"] = "JobTitle";
-    print_hash<string, string>(map);
+    print_hash(map);
     cout << std::string(120, '-');
     cout << map.get("MICKELSON LORENE P") << endl;
-    cout << map["MICKELSON LORENE P"] << endl;
     cout << std::string(120, '-');
     map.remove("MICKELSON LORENE P");
-    print_hash<string, string>(map);
+    map.insert("SAMANTA", "TEACHING ASSISTANT");
+    print_hash(map);
+}
 
+int main(){
+    ejemplo1();
     return 0;
 }
