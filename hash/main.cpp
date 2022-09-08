@@ -33,7 +33,7 @@ void print_hash(chain_hash<KeyType, ValueType>& hash){
     cout << "Number of elements: " << hash.get_size() << endl;
     for (int i=0; i < hash.bucket_count(); ++i){
         cout << "bucket #" << i << " contains " << hash.bucket_size(i) << " elements:" << endl;
-        for (forward_iterator<chain_hash<string, string>::triplet> it = hash.begin(i); it != hash.end(i); ++it){
+        for (auto it = hash.begin(i); it != hash.end(i); ++it){
             cout << "[" << it->key << ":" << it->value << "]" << endl;
         }
     }
@@ -46,13 +46,17 @@ void ejemplo1(){
     for (auto& [EmployeeName, JobTitle] : data){
         map[EmployeeName] = JobTitle;
     }
+    cout << std::string(120, '-');
     print_hash(map);
     cout << std::string(120, '-');
-    cout << map.get("MICKELSON LORENE P") << endl;
+    cout << "MICKELSON LORENE P: " << map.get("MICKELSON LORENE P") << endl;
     cout << std::string(120, '-');
     map.remove("MICKELSON LORENE P");
+    cout << "map size: " << map.get_size() << endl;
+    cout << std::string(120, '-');
     map.insert("SAMANTA", "TEACHING ASSISTANT");
     print_hash(map);
+    cout << std::string(120, '-');
 }
 
 int main(){

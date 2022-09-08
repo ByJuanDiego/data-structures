@@ -6,7 +6,10 @@
 #define HASH_CHAIN_HASH_H
 
 #include <functional>
-#include "../list/forward/forward_list.h"
+#include <forward_list>
+#include <iterator>
+using std::forward_list;
+using index_t = ssize_t;
 
 constexpr float max_fill_factor = 0.5;
 constexpr float max_collision = 3;
@@ -94,7 +97,7 @@ size_t chain_hash<KeyType, ValueType>::bucket_count() const {
 
 template<typename KeyType, typename ValueType>
 size_t chain_hash<KeyType, ValueType>::bucket_size(const size_t &i_bucket) const {
-    return array[i_bucket].size();
+    return std::distance(array[i_bucket].begin(), array[i_bucket].end());
 }
 
 template<typename KeyType, typename ValueType>
@@ -151,7 +154,7 @@ template<typename KeyType, typename ValueType>
 void chain_hash<KeyType, ValueType>::remove(const KeyType& key) {
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
-    array[index].remove_once_if([&](triplet& element){
+    array[index].remove_if([&](triplet& element){
         if (element.key == key) {
             --size;
         }

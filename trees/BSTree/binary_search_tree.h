@@ -26,6 +26,8 @@ public:
 
     [[nodiscard]] T min(binary_search_node<T>* node);
     [[nodiscard]] T max(binary_search_node<T>* node);
+
+    template<typename Function>
     void preorder(binary_search_node<T>* node);
     void postorder(binary_search_node<T>* node);
     void inorder(binary_search_tree<T>* node);
