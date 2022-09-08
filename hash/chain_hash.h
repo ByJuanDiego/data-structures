@@ -50,7 +50,7 @@ public:
     void insert(const KeyType& key, const ValueType& value);                 // O(n), θ(k)
     void remove(const KeyType& key);                                         // O(n), θ(k)
 
-    ValueType& get(const KeyType& key) const;                                // O(n), θ(k)
+    ValueType& get(const KeyType& key);                                // O(n), θ(k)
     ValueType& operator[](const KeyType& key);                               // O(n), θ(k)
     ValueType operator[](const KeyType& key) const;                          // O(n), θ(k)
 
@@ -157,7 +157,7 @@ void chain_hash<KeyType, ValueType>::remove(const KeyType& key) {
 }
 
 template<typename KeyType, typename ValueType>
-ValueType &chain_hash<KeyType, ValueType>::get(const KeyType &key) const {
+ValueType &chain_hash<KeyType, ValueType>::get(const KeyType &key) {
     size_t hash_code = hash_functor(key);
     size_t index = hash_code % capacity;
     for (triplet& triplet: array[index]){
@@ -165,7 +165,9 @@ ValueType &chain_hash<KeyType, ValueType>::get(const KeyType &key) const {
             return triplet.value;
         }
     }
-    throw std::invalid_argument("Invalid operation, the key is not in the hash");
+    insert(key, ValueType());
+    return get(key);
+    // throw std::invalid_argument("Invalid operation, the key is not in the hash");
 }
 
 template<typename KeyType, typename ValueType>
