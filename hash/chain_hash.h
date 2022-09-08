@@ -9,6 +9,7 @@
 #include <forward_list>
 #include <iterator>
 using std::forward_list;
+using std::distance;
 using index_t = ssize_t;
 
 constexpr float max_fill_factor = 0.5;
@@ -97,7 +98,7 @@ size_t chain_hash<KeyType, ValueType>::bucket_count() const {
 
 template<typename KeyType, typename ValueType>
 size_t chain_hash<KeyType, ValueType>::bucket_size(const size_t &i_bucket) const {
-    return std::distance(array[i_bucket].begin(), array[i_bucket].end());
+    return distance(array[i_bucket].begin(), array[i_bucket].end());
 }
 
 template<typename KeyType, typename ValueType>
