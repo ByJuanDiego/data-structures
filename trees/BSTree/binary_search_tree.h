@@ -140,6 +140,7 @@ T binary_search_tree<T>::_find(T value, binary_node<T>* node) const{
     } else if (value < node->data){
         return _find(value, node->left);
     }
+    throw std::invalid_argument("something went wrong while searching for an item");
 }
 
 template<typename T>
