@@ -81,13 +81,13 @@ chain_hash<KeyType, ValueType>::triplet::triplet(const chain_hash::triplet &othe
 
 template<typename KeyType, typename ValueType>
 chain_hash<KeyType, ValueType>::chain_hash()
-: size(0), capacity(10){
+: capacity(10), size(0){
     array = new forward_list<chain_hash<KeyType, ValueType>::triplet>[capacity];
 }
 
 template<typename KeyType, typename ValueType>
 chain_hash<KeyType, ValueType>::chain_hash(const size_t &capacity)
-: size(0), capacity(capacity){
+: capacity(capacity), size(0){
     array = new forward_list<chain_hash<KeyType, ValueType>::triplet>[this->capacity];
 }
 
