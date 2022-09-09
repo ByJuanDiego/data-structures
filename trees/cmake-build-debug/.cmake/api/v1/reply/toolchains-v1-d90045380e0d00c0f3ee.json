@@ -10,16 +10,17 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed",
-						"C:/MinGW/mingw64-7.3.0/x86_64-w64-mingw32/include"
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0/include",
+						"C:/MinGW/mingw64-9.0.0/include",
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed",
+						"C:/MinGW/mingw64-9.0.0/x86_64-w64-mingw32/include"
 					],
 					"linkDirectories" : 
 					[
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc",
-						"C:/MinGW/mingw64-7.3.0/x86_64-w64-mingw32/lib",
-						"C:/MinGW/mingw64-7.3.0/lib"
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0",
+						"C:/MinGW/mingw64-9.0.0/lib/gcc",
+						"C:/MinGW/mingw64-9.0.0/x86_64-w64-mingw32/lib",
+						"C:/MinGW/mingw64-9.0.0/lib"
 					],
 					"linkFrameworkDirectories" : [],
 					"linkLibraries" : 
@@ -28,20 +29,21 @@
 						"gcc",
 						"moldname",
 						"mingwex",
+						"kernel32",
 						"pthread",
 						"advapi32",
 						"shell32",
 						"user32",
 						"kernel32",
-						"iconv",
 						"mingw32",
 						"gcc",
 						"moldname",
-						"mingwex"
+						"mingwex",
+						"kernel32"
 					]
 				},
-				"path" : "C:/MinGW/mingw64-7.3.0/bin/gcc.exe",
-				"version" : "7.3.0"
+				"path" : "C:/MinGW/mingw64-9.0.0/bin/gcc.exe",
+				"version" : "11.2.0"
 			},
 			"language" : "C",
 			"sourceFileExtensions" : 
@@ -58,19 +60,20 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed",
-						"C:/MinGW/mingw64-7.3.0/x86_64-w64-mingw32/include"
+						"C:/MinGW/mingw64-9.0.0/include/c++/11.2.0",
+						"C:/MinGW/mingw64-9.0.0/include/c++/11.2.0/x86_64-w64-mingw32",
+						"C:/MinGW/mingw64-9.0.0/include/c++/11.2.0/backward",
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0/include",
+						"C:/MinGW/mingw64-9.0.0/include",
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed",
+						"C:/MinGW/mingw64-9.0.0/x86_64-w64-mingw32/include"
 					],
 					"linkDirectories" : 
 					[
-						"C:/MinGW/mingw64-7.3.0/lib/gcc/x86_64-w64-mingw32/7.3.0",
-						"C:/MinGW/mingw64-7.3.0/lib/gcc",
-						"C:/MinGW/mingw64-7.3.0/x86_64-w64-mingw32/lib",
-						"C:/MinGW/mingw64-7.3.0/lib"
+						"C:/MinGW/mingw64-9.0.0/lib/gcc/x86_64-w64-mingw32/11.2.0",
+						"C:/MinGW/mingw64-9.0.0/lib/gcc",
+						"C:/MinGW/mingw64-9.0.0/x86_64-w64-mingw32/lib",
+						"C:/MinGW/mingw64-9.0.0/lib"
 					],
 					"linkFrameworkDirectories" : [],
 					"linkLibraries" : 
@@ -81,21 +84,22 @@
 						"gcc",
 						"moldname",
 						"mingwex",
+						"kernel32",
 						"pthread",
 						"advapi32",
 						"shell32",
 						"user32",
 						"kernel32",
-						"iconv",
 						"mingw32",
 						"gcc_s",
 						"gcc",
 						"moldname",
-						"mingwex"
+						"mingwex",
+						"kernel32"
 					]
 				},
-				"path" : "C:/MinGW/mingw64-7.3.0/bin/c++.exe",
-				"version" : "7.3.0"
+				"path" : "C:/MinGW/mingw64-9.0.0/bin/c++.exe",
+				"version" : "11.2.0"
 			},
 			"language" : "CXX",
 			"sourceFileExtensions" : 
@@ -117,7 +121,7 @@
 			"compiler" : 
 			{
 				"implicit" : {},
-				"path" : "C:/MinGW/mingw64-7.3.0/bin/windres.exe"
+				"path" : "C:/MinGW/mingw64-9.0.0/bin/windres.exe"
 			},
 			"language" : "RC",
 			"sourceFileExtensions" : 

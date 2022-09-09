@@ -39,9 +39,6 @@
 			[
 				{
 					"fragment" : "-g"
-				},
-				{
-					"fragment" : "-std=gnu++1z"
 				}
 			],
 			"language" : "CXX",
@@ -119,7 +116,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "BSTree/binary_search_node.h",
+			"path" : "BSTree/binary_node.h",
 			"sourceGroupIndex" : 1
 		}
 	],

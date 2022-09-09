@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/MinGW/mingw64-7.3.0/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/MinGW/mingw64-9.0.0/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
