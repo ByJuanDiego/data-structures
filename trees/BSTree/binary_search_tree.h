@@ -27,8 +27,8 @@ private:
     bool _search(T value, binary_node<T>* node) const;
     T _find(T value, binary_node<T>* node) const;
 
-    T _min(binary_node<T>* node);
-    T _max(binary_node<T>* node);
+    binary_node<T>* _min_node_ptr(binary_node<T>* node);
+    binary_node<T>* _max_node_ptr(binary_node<T>* node);
 
     template <typename Function>
     void _preorder(binary_node<T>* node, const Function& process);
@@ -124,7 +124,7 @@ template<typename T>
 void binary_search_tree<T>::_remove(T value, binary_node<T>* & node) {
     if (node == nullptr){
         throw std::invalid_argument(
-            "Invalid operation, the node points to nullptr\n"
+            "Invalid operation, the pointer is nullptr\n"
             "(probably the element to remove is not in the BST or it's empty)"
         );
     }
@@ -149,10 +149,12 @@ void binary_search_tree<T>::_remove(T value, binary_node<T>* & node) {
             node = node->left;
             delete temp;
         } else {// Two children
-            T min_value = _min(node->right); // find the min in right
-            node->data = min_value;               // copy the value in the current node
-            // TODO
+            binary_node<T>* min_node_ptr = _min_node_ptr(node->right); // find the min in right
+            T data = min_node_ptr->data;
+            min_node_ptr->data = node->data;
+            node->data = data;
             // Delete the duplicate from right-subtree
+            _remove(value, node->right);
         }
     }
 }
@@ -186,19 +188,19 @@ T binary_search_tree<T>::_find(T value, binary_node<T>* node) const{
 }
 
 template<typename T>
-T binary_search_tree<T>::_min(binary_node<T>* node) {
+binary_node<T> *binary_search_tree<T>::_min_node_ptr(binary_node<T>* node) {
     if (!has_left_child(node)){
-        return node->data;
+        return node;
     }
-    return _min(node->left);
+    return _min_node_ptr(node->left);
 }
 
 template<typename T>
-T binary_search_tree<T>::_max(binary_node<T> *node) {
+binary_node<T> *binary_search_tree<T>::_max_node_ptr(binary_node<T>* node) {
     if (!has_right_child(node)){
-        return node->data;
+        return node;
     }
-    return _max(node->right);
+    return _max_node_ptr(node->right);
 }
 
 template<typename T>
@@ -259,12 +261,14 @@ T binary_search_tree<T>::find(T value) const {
 
 template<typename T>
 T binary_search_tree<T>::min() {
-    return _min(root);
+    binary_node<T>* node = _min_node_ptr(root);
+    return node->data;
 }
 
 template<typename T>
 T binary_search_tree<T>::max() {
-    return _min(root);
+    binary_node<T>* node = _max_node_ptr(root);
+    return node->data;
 }
 
 template<typename T>

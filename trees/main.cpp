@@ -18,22 +18,24 @@ int main() {
     tree.inorder([](const Alumno& alumno){cout << alumno << endl;});
     cout << tree.find(Alumno("Juan Diego")) << endl;
 
-    binary_search_tree<int> tree1 {15, 10, 20, 8, 12, 18, 30, 16, 19};
+    binary_search_tree<int> tree1 {15, 10, 20, 8, 12, 18, 30, 16, 19, 21, 31};
 
     tree1.preorder([](auto& i){
         cout << i << " ";
     });
     cout << endl;
-
-    tree1.inorder([](auto& i){
+    tree1.remove(20);
+    tree1.preorder([](auto& i){
         cout << i << " ";
     });
     cout << endl;
-
     tree1.postorder([](auto& i){
         cout << i << " ";
     });
     cout << endl;
+
+    cout << tree1.min() << endl;
+    cout << tree1.max() << endl;
 
     return 0;
 }
