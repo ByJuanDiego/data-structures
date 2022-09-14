@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_trees: phony || CMakeFiles/trees.dir
 
 build CMakeFiles/trees.dir/main.cpp.obj: CXX_COMPILER__trees_Debug C$:/Users/Juan$ Diego/Desktop/CS2023aed/structures/trees/main.cpp || cmake_object_order_depends_target_trees
   DEP_FILE = CMakeFiles\trees.dir\main.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++1z
   OBJECT_DIR = CMakeFiles\trees.dir
   OBJECT_FILE_DIR = CMakeFiles\trees.dir
 

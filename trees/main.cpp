@@ -2,37 +2,12 @@
 #include <string>
 #include <utility>
 #include "BSTree/binary_search_tree.h"
+#include "alumno.h"
+
 using std::cout;
 using std::endl;
 using std::string;
 using std::ostream;
-
-struct Alumno{
-    string nombre;
-    int edad;
-
-    Alumno(): edad(0){};
-    Alumno(string nombre, int edad)
-    : nombre(std::move(nombre)), edad(edad){}
-    explicit Alumno(string nombre)
-    : nombre(std::move(nombre)), edad(0){}
-
-    [[nodiscard]] bool operator < (const Alumno& other) const{
-        return nombre < other.nombre;
-    }
-    [[nodiscard]] bool operator > (const Alumno& other) const{
-        return nombre > other.nombre;
-    }
-
-    [[nodiscard]] bool operator == (const Alumno& other) const{
-        return nombre == other.nombre;
-    }
-
-    friend ostream& operator<< (ostream& os, const Alumno& other){
-        os << other.nombre << ", " << other.edad;
-        return os;
-    }
-};
 
 int main() {
     binary_search_tree<Alumno> tree;
@@ -42,5 +17,23 @@ int main() {
     tree.insert(Alumno("Carlos", 23));
     tree.inorder([](const Alumno& alumno){cout << alumno << endl;});
     cout << tree.find(Alumno("Juan Diego")) << endl;
+
+    binary_search_tree<int> tree1 {15, 10, 20, 8, 12, 18, 30, 16, 19};
+
+    tree1.preorder([](auto& i){
+        cout << i << " ";
+    });
+    cout << endl;
+
+    tree1.inorder([](auto& i){
+        cout << i << " ";
+    });
+    cout << endl;
+
+    tree1.postorder([](auto& i){
+        cout << i << " ";
+    });
+    cout << endl;
+
     return 0;
 }

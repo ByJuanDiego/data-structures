@@ -18,6 +18,10 @@ private:
 
     binary_node<T>* root;
 
+    [[nodiscard]] bool leaf(binary_node<T>* node);
+    [[nodiscard]] bool has_right_child(binary_node<T>* node);
+    [[nodiscard]] bool has_left_child(binary_node<T>* node);
+
     void _insert(T value, binary_node<T>* & node);
     void _remove(T value, binary_node<T>* & node);
     bool _search(T value, binary_node<T>* node) const;
@@ -76,18 +80,33 @@ binary_search_tree()
 }
 
 template<typename T>
+bool binary_search_tree<T>::leaf(binary_node<T>* node) {
+    return ((node->right == nullptr) && (node->left == nullptr));
+}
+
+template<typename T>
+bool binary_search_tree<T>::has_right_child(binary_node<T>* node) {
+    return (node->right != nullptr);
+}
+
+template<typename T>
+bool binary_search_tree<T>::has_left_child(binary_node<T>* node) {
+    return (node->left != nullptr);
+}
+
+template<typename T>
 void binary_search_tree<T>::_insert(T value, binary_node<T>* & node) {
     if (node == nullptr){
         node = new binary_node<T>(value);
         return;
     }
 
-    if (node->right == nullptr){
+    if (!has_right_child(node)){
         if (value > node->data){
             node->right = new binary_node<T>(value);
             return;
         }
-    } else if (node->left == nullptr){
+    } else if (!has_left_child(node)){
         if (value < node->data){
             node->left = new binary_node<T>(value);
             return;
@@ -103,16 +122,39 @@ void binary_search_tree<T>::_insert(T value, binary_node<T>* & node) {
 
 template<typename T>
 void binary_search_tree<T>::_remove(T value, binary_node<T>* & node) {
-    // TODO
-//    if (node == nullptr){
-//        throw std::invalid_argument("Invalid operation, the node points to nullptr");
-//    }
-//    if (node->data > value){
-//        _remove(value, node->left);
-//    } else if (node->data < value){
-//        _remove(value, node->right);
-//    }
+    if (node == nullptr){
+        throw std::invalid_argument(
+            "Invalid operation, the node points to nullptr\n"
+            "(probably the element to remove is not in the BST or it's empty)"
+        );
+    }
 
+    if (node->data > value){
+        _remove(value, node->left);
+    } else if (node->data < value){
+        _remove(value, node->right);
+    } else {
+        // Value was found
+
+        // Evaluate how many children the node has
+        if (leaf(node)){// If the node don't have any children
+            delete node;
+            node = nullptr;
+        } else if (has_right_child(node) && !has_left_child(node)){// One right children
+            binary_node<T>* temp = node;
+            node = node->right;
+            delete temp;
+        } else if (has_left_child(node) && !has_right_child(node)) {// One left children
+            binary_node<T>* temp = node;
+            node = node->left;
+            delete temp;
+        } else {// Two children
+            T min_value = _min(node->right); // find the min in right
+            node->data = min_value;               // copy the value in the current node
+            // TODO
+            // Delete the duplicate from right-subtree
+        }
+    }
 }
 
 template<typename T>
@@ -145,7 +187,7 @@ T binary_search_tree<T>::_find(T value, binary_node<T>* node) const{
 
 template<typename T>
 T binary_search_tree<T>::_min(binary_node<T>* node) {
-    if (node->left == nullptr){
+    if (!has_left_child(node)){
         return node->data;
     }
     return _min(node->left);
@@ -153,7 +195,7 @@ T binary_search_tree<T>::_min(binary_node<T>* node) {
 
 template<typename T>
 T binary_search_tree<T>::_max(binary_node<T> *node) {
-    if (node->right == nullptr){
+    if (!has_right_child(node)){
         return node->data;
     }
     return _max(node->right);
@@ -161,7 +203,8 @@ T binary_search_tree<T>::_max(binary_node<T> *node) {
 
 template<typename T>
 template<typename Function>
-void binary_search_tree<T>::_preorder(binary_node<T>* node, const Function& process) {
+void binary_search_tree<T>::_preorder(binary_node<T>* node, const Function& process)
+{// root - left - right,
     if (node == nullptr) {
         return;
     }
@@ -172,7 +215,8 @@ void binary_search_tree<T>::_preorder(binary_node<T>* node, const Function& proc
 
 template<typename T>
 template<typename Function>
-void binary_search_tree<T>::_postorder(binary_node<T>* node, const Function& process) {
+void binary_search_tree<T>::_postorder(binary_node<T>* node, const Function& process)
+{// left - right - root, recorre de abajo hacia arriba
     if (node == nullptr){
         return;
     }
@@ -184,6 +228,7 @@ void binary_search_tree<T>::_postorder(binary_node<T>* node, const Function& pro
 template<typename T>
 template<typename Function>
 void binary_search_tree<T>::_inorder(binary_node<T>* node, const Function& process) {
+// left - root - right
     if (node == nullptr){
         return;
     }
@@ -199,8 +244,7 @@ void binary_search_tree<T>::insert(T value) {
 
 template<typename T>
 void binary_search_tree<T>::remove(T value) {
-    // TODO
-//    _remove(value, root);
+    _remove(value, root);
 }
 
 template<typename T>
